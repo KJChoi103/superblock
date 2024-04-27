@@ -4,11 +4,42 @@ import "./App.scss";
 import balloon from "./utils/balloon";
 import swal from "./utils/sweetAlert";
 
-type Grid = boolean[][];
-
 function App() {
 
-		const [grid, setGrid] = useState<Grid>(balloon.create(5));
+		const [gridSize, setGridSize] = useState<number>(0);
+		const [grid, setGrid] = useState<boolean[][]>();
+
+		/**
+		 * 격자의 크기를 변경하는 함수입니다.
+		 * 사용자가 입력한 크기를 받아와서 새로운 격자를 생성합니다.
+		 */
+		const handleGrdSizeChange = () => {
+				swal.getGridSizePopup().then((result) => {
+						if (result === undefined || isNaN(parseInt(result))) {
+								return;
+						}
+
+						setGridSize(parseInt(result));
+						setGrid(balloon.create(parseInt(result)));
+				});
+		};
+
+		/**
+		 * 다크 모드를 설정하는 함수입니다.
+		 * @param event
+		 */
+		const handleDarkMode = (event: any) => {
+				document.documentElement.setAttribute("theme", event.target.checked ? "dark-mode" : "");
+		};
+
+
+		if (gridSize === 0 || grid === undefined) {
+				handleGrdSizeChange();
+
+
+				return (<div>로딩 중...</div>);
+		}
+
 		const allConnectedBalloons = balloon.getAllConnectedBalloons(grid);
 
 
@@ -55,26 +86,39 @@ function App() {
 		 * 게임을 종료하고 새 게임을 시작하는 함수입니다.
 		 */
 		const endGame = () => {
-				setGrid(balloon.create(5));
+				setGrid(balloon.create(gridSize));
 		};
 
-
 		return (
-			<div className={"grid"}>
-					{grid.map((row, rowIndex) => (
-						<div key={rowIndex} className={"row"}>
-								{row.map((cell, cellIndex) => (
-									<div key={cellIndex} className={"cell"}>
-											<button onClick={() => handleBalloonClick(rowIndex, cellIndex)}>
-													{cell ? "🎈" : ""}
-											</button>
-									</div>
-								))}
-						</div>
-					))}
+			<div className={"gameContainer"}>
+					<div className={"buttonContainer"}>
+							<div className={"buttonContainer-left"}>
+									<button onClick={handleGrdSizeChange}>격자 크기 변경</button>
+									<button onClick={endGame}>새 게임</button>
+							</div>
+							<div className={"buttonContainer-right"}>
+									<label className="switch">
+											<input type="checkbox" onClick={handleDarkMode}/>
+											<span className="slider"></span>
+									</label>
+							</div>
+					</div>
+					<div className={"grid"}>
+							{grid.map((row, rowIndex) => (
+								<div key={rowIndex} className={"row"}>
+										{row.map((cell, cellIndex) => (
+											<div key={cellIndex} className={"cell"}>
+													<button onClick={() => handleBalloonClick(rowIndex, cellIndex)}>
+															{cell ? "🎈" : ""}
+													</button>
+											</div>
+										))}
+								</div>
+							))}
+					</div>
 			</div>
+
 		);
 }
-
 
 export default App;
