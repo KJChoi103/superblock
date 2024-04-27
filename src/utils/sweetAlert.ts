@@ -13,6 +13,18 @@ const swal = {
 						confirmButtonText: "새 게임 시작",
 				});
 		},
+
+		getGridSizePopup: () => {
+				return withReactContent(Swal).fire({
+						title: "격자의 크기를 입력하세요",
+						input: "number",
+						inputAttributes: {
+								min: "0",
+								step: "1",
+						},
+						confirmButtonText: "시작",
+				}).then((result) => result.value);
+		},
 };
 
 export default swal;
