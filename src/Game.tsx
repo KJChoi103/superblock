@@ -97,10 +97,10 @@ function Game() {
 		};
 
 		useEffect(() => {
+
 				if (searchParams.has("gridSize") && searchParams.has("grid")) {
 						setGameStateFromURL();
 				} else {
-
 						initializeGame();
 				}
 		}, []);

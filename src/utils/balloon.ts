@@ -168,8 +168,8 @@ const balloon = {
 		 */
 		convertQueryStringToGrid: (queryString: string, gridSize: number): boolean[][] => {
 				let grid = [];
-				try {
 
+				try {
 						if (queryString.length !== gridSize * gridSize) {
 								throw new Error("잘못된 주소입니다.");
 						}
