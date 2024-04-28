@@ -1,0 +1,13 @@
+
+html[theme=""] {
+  transition: 0.4s;
+}
+
+html[theme="dark-mode"] {
+  filter: invert(100%) hue-rotate(180deg);
+  transition: 0.4s;
+}
+
+body {
+  background-color: $color-background;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./utils/assets/index.scss";
+import "./utils/assets/App.scss";
 import balloon from "./utils/balloon";
 import swal from "./utils/sweetAlert";
 
