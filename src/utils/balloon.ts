@@ -134,13 +134,65 @@ const balloon = {
 		 * @param coors 터트릴 풍선들의 좌표
 		 * @returns 풍선이 터진 후의 그리드
 		 */
-		setConnectedBalloonsToFalse: (prevGrid: boolean[][], coors: number[][]): boolean[][] => {
+		setConnectedBalloonsToFalse: (prevGrid: boolean[][] | undefined, coors: number[][]): boolean[][] => {
+
+				if (!prevGrid) {
+						return [];
+				}
+
 				const newGrid = [...prevGrid];
 				coors.forEach(([row, col]) => {
 						newGrid[row][col] = false;
 				});
 				return newGrid;
 		},
+
+		/**
+		 * 그리드를 쿼리 스트링으로 변환하는 함수입니다.
+		 * @param grid
+		 */
+		convertGridToQueryString: (grid: boolean[][] | undefined): string => {
+				if (!grid) {
+						return "";
+				}
+
+				return grid.map(row => row.map(cell => cell ? "1" : "0").join("")).join("");
+		},
+
+		/**
+		 * 쿼리 스트링을 그리드로 변환하는 함수입니다.
+		 * 쿼리 스트링이 잘못된 경우 빈 배열을 반환합니다.
+		 *
+		 * @param queryString
+		 * @param gridSize
+		 */
+		convertQueryStringToGrid: (queryString: string, gridSize: number): boolean[][] => {
+				let grid = [];
+				try {
+
+						if (queryString.length !== gridSize * gridSize) {
+								throw new Error("잘못된 주소입니다.");
+						}
+
+						if (!/^[01]*$/.test(queryString)) {
+								throw new Error("잘못된 줏소입니다.");
+						}
+
+						for (let i = 0; i < gridSize; i++) {
+								grid.push(
+									queryString.slice(i * gridSize, (i + 1) * gridSize)
+									.split("")
+									.map(cell => cell === "1"),
+								);
+						}
+				}
+				catch (e) {
+						return [];
+				}
+
+				return grid;
+		},
+
 }
 
 export default balloon;

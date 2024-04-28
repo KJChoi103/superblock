@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import "./utils/assets/App.scss";
 import balloon from "./utils/balloon";
 import swal from "./utils/sweetAlert";
+import common from "./utils/common";
 
-function App() {
+function Game() {
 
 		const [gridSize, setGridSize] = useState<number>(0);
 		const [grid, setGrid] = useState<boolean[][]>();
+		const [searchParams, setSearchParams] = useSearchParams();
 
 		/**
 		 * 격자의 크기를 변경하는 함수입니다.
 		 * 사용자가 입력한 크기를 받아와서 새로운 격자를 생성합니다.
 		 */
-		const handleGrdSizeChange = () => {
+		const askGridSize = () => {
 				swal.getGridSizePopup().then((result) => {
 						if (result === undefined || isNaN(parseInt(result))) {
 								return;
@@ -23,25 +26,6 @@ function App() {
 						setGrid(balloon.create(parseInt(result)));
 				});
 		};
-
-		/**
-		 * 다크 모드를 설정하는 함수입니다.
-		 * @param event
-		 */
-		const handleDarkMode = (event: any) => {
-				document.documentElement.setAttribute("theme", event.target.checked ? "dark-mode" : "");
-		};
-
-
-		if (gridSize === 0 || grid === undefined) {
-				handleGrdSizeChange();
-
-
-				return (<div>로딩 중...</div>);
-		}
-
-		const allConnectedBalloons = balloon.getAllConnectedBalloons(grid);
-
 
 		/**
 		 * 사용자가 풍선을 클릭했을 때 호출되는 함수입니다.
@@ -89,17 +73,62 @@ function App() {
 				setGrid(balloon.create(gridSize));
 		};
 
+		/**
+		 * URL에서 게임 상태를 가져와서 게임을 초기화하는 함수입니다.
+		 */
+		const setGameStateFromURL = () => {
+				if (searchParams.has("gridSize") && searchParams.has("grid")) {
+						const gridSize = parseInt(searchParams.get("gridSize") as string);
+						const grid = balloon.convertQueryStringToGrid(searchParams.get("grid") as string, gridSize);
+
+						if(grid.length > 0){
+								setGridSize(gridSize);
+								setGrid(grid);
+						}
+				}
+		};
+
+		/**
+		 * 게임을 초기화하는 함수입니다.
+		 */
+		const initializeGame = () => {
+				if (gridSize === 0 || grid === undefined) {
+						askGridSize();
+				}
+		};
+
+		useEffect(() => {
+				setGameStateFromURL();
+				initializeGame();
+		}, []);
+
+		useEffect(() => {
+
+				searchParams.set("gridSize", gridSize.toString());
+				searchParams.set("grid", balloon.convertGridToQueryString(grid));
+
+				setSearchParams(searchParams);
+		}, [gridSize, grid]);
+
+
+		if (gridSize === 0 || grid === undefined) {
+				return (<div>로딩 중...</div>);
+		}
+
+		const allConnectedBalloons = balloon.getAllConnectedBalloons(grid);
+
+
 		return (
 			<div className={"gameContainer"}>
 					<div className={"buttonContainer"}>
 							<div className="buttonInner">
 									<div className={"buttonContainer-left"}>
-											<button onClick={handleGrdSizeChange}>격자 크기 변경</button>
+											<button onClick={askGridSize}>격자 크기 변경</button>
 											<button onClick={endGame}>새 게임</button>
 									</div>
 									<div className={"buttonContainer-right"}>
 											<label className="switch">
-													<input type="checkbox" onClick={handleDarkMode}/>
+													<input type="checkbox" onClick={common.handleDarkMode}/>
 													<span className="slider"></span>
 											</label>
 									</div>
@@ -125,4 +154,4 @@ function App() {
 		);
 }
 
-export default App;
+export default Game;

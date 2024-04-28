@@ -23,6 +23,8 @@ const swal = {
 								step: "1",
 						},
 						confirmButtonText: "시작",
+						allowOutsideClick: false,
+						allowEscapeKey: false,
 				}).then((result) => result.value);
 		},
 };
