@@ -1,0 +1,141 @@
+
+html[theme=""] {
+  transition: 0.4s;
+}
+
+html[theme="dark-mode"] {
+  filter: invert(100%) hue-rotate(180deg);
+  transition: 0.4s;
+}
+
+body {
+  background-color: $color-background;
+
+  .gameContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .buttonContainer {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 15px;
+      background-color: $color-button;
+      border-bottom: 1px solid $color-border;
+
+      .buttonInner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 20px;
+
+        button {
+          width: 150px;
+          height: 50px;
+          background-color: $color-button;
+          border: 1px solid $color-border;
+          border-radius: 20%;
+          font-size: 20px;
+          cursor: pointer;
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    .gridContainer {
+      margin: 100px auto;
+      justify-content: center;
+      align-items: center;
+      height: 80%;
+
+      .grid {
+        display: grid;
+
+        .row {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            border: 1px solid $color-border;
+
+            > button {
+              min-width: 45px;
+              min-height: 45px;
+              background-color: transparent;
+              border: none;
+              font-size: 30px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-darkgrey;
+    transition: .4s;
+
+    &:before {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      content: "☀️";
+      background-color: $color-white;
+      transition: .4s;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: $color-lightgray;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px $color-lightgray;
+  }
+
+  input:checked + .slider:before {
+    content: "🌙";
+    transform: translateX(26px);
+  }
+}

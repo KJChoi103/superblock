@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./App.scss";
+import "./utils/assets/index.scss";
 import balloon from "./utils/balloon";
 import swal from "./utils/sweetAlert";
 
@@ -92,29 +92,33 @@ function App() {
 		return (
 			<div className={"gameContainer"}>
 					<div className={"buttonContainer"}>
-							<div className={"buttonContainer-left"}>
-									<button onClick={handleGrdSizeChange}>격자 크기 변경</button>
-									<button onClick={endGame}>새 게임</button>
-							</div>
-							<div className={"buttonContainer-right"}>
-									<label className="switch">
-											<input type="checkbox" onClick={handleDarkMode}/>
-											<span className="slider"></span>
-									</label>
+							<div className="buttonInner">
+									<div className={"buttonContainer-left"}>
+											<button onClick={handleGrdSizeChange}>격자 크기 변경</button>
+											<button onClick={endGame}>새 게임</button>
+									</div>
+									<div className={"buttonContainer-right"}>
+											<label className="switch">
+													<input type="checkbox" onClick={handleDarkMode}/>
+													<span className="slider"></span>
+											</label>
+									</div>
 							</div>
 					</div>
-					<div className={"grid"}>
-							{grid.map((row, rowIndex) => (
-								<div key={rowIndex} className={"row"}>
-										{row.map((cell, cellIndex) => (
-											<div key={cellIndex} className={"cell"}>
-													<button onClick={() => handleBalloonClick(rowIndex, cellIndex)}>
-															{cell ? "🎈" : ""}
-													</button>
-											</div>
-										))}
-								</div>
-							))}
+					<div className={"gridContainer"}>
+							<div className={"grid"}>
+									{grid.map((row, rowIndex) => (
+										<div key={rowIndex} className={"row"}>
+												{row.map((cell, cellIndex) => (
+													<div key={cellIndex} className={"cell"}>
+															<button onClick={() => handleBalloonClick(rowIndex, cellIndex)}>
+																	{cell ? "🎈" : ""}
+															</button>
+													</div>
+												))}
+										</div>
+									))}
+							</div>
 					</div>
 			</div>
 
