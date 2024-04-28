@@ -77,14 +77,13 @@ function Game() {
 		 * URL에서 게임 상태를 가져와서 게임을 초기화하는 함수입니다.
 		 */
 		const setGameStateFromURL = () => {
-				if (searchParams.has("gridSize") && searchParams.has("grid")) {
-						const gridSize = parseInt(searchParams.get("gridSize") as string);
-						const grid = balloon.convertQueryStringToGrid(searchParams.get("grid") as string, gridSize);
 
-						if(grid.length > 0){
-								setGridSize(gridSize);
-								setGrid(grid);
-						}
+				const gridSize = parseInt(searchParams.get("gridSize") as string);
+				const grid = balloon.convertQueryStringToGrid(searchParams.get("grid") as string, gridSize);
+
+				if (grid.length > 0) {
+						setGridSize(gridSize);
+						setGrid(grid);
 				}
 		};
 
@@ -98,8 +97,12 @@ function Game() {
 		};
 
 		useEffect(() => {
-				setGameStateFromURL();
-				initializeGame();
+				if (searchParams.has("gridSize") && searchParams.has("grid")) {
+						setGameStateFromURL();
+				} else {
+
+						initializeGame();
+				}
 		}, []);
 
 		useEffect(() => {
