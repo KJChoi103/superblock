@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# 슈퍼블록 FE 과제전형 - 최경주
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. 풍선 터트리기 게임 제작
 
-## Available Scripts
+### 사용 기술
+- React
+- TypeScript
+- SweetAlert2
+- pnpm
 
-In the project directory, you can run:
+### 실행 방법
+1. 프로젝트 클론
+```bash
+git clone https://github.com/KJChoi103/superblock.git
+```
 
-### `npm start`
+2. 의존성 설치
+```bash
+npm install -g pnpm
+pnpm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. 실행
+```bash
+pnpm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 구현 내용
+- 풍선 터트리기 게임
+- 풍선을 클릭 시 터지게 되며 상하좌우로 연결도니 경우 같이 터지게 됩니다.
+- 사용자는 한번에 가장 많은 풍선을 터뜨릴 수 있는 순서대로 풍선을 클릭해야 합니다.
+- 위 조건에 맞지 않는 풍선을 클릭하면 게임에서 패배합니다.
 
-### `npm test`
+### 선택 구현 내용
+- 다크 모드로 전환할 수 있는 토글 버튼 구현 완료
+- 게임 시작 시 격자의 크기를 사용자가 원하는 대로 조정할 수 있는 기능 구현 완료
+- 게임 URL을 복사하여 공유할 경우, 게임을 현재 시점의 상태로 공유할 수 있는 기능 구현 완료
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
