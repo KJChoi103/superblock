@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import "./utils/assets/App.scss";
-import balloon from "./utils/balloon";
-import swal from "./utils/sweetAlert";
-import common from "./utils/common";
+import "../utils/assets/App.scss";
+import balloon from "../utils/balloon";
+import swal from "../utils/sweetAlert";
+import common from "../utils/common";
 
 function Game() {
 
