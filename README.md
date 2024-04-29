@@ -14,14 +14,18 @@
 ```bash
 git clone https://github.com/KJChoi103/superblock.git
 ```
+2. 디렉토리 이동
+```bash
+cd superblock
+```
 
-2. 의존성 설치
+3. 의존성 설치
 ```bash
 npm install -g pnpm
 pnpm install
 ```
 
-3. 실행
+4. 실행
 ```bash
 pnpm start
 ```
