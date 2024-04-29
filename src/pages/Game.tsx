@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import "../utils/assets/App.scss";
+import "../assets/App.scss";
 import balloon from "../utils/balloon";
 import swal from "../utils/sweetAlert";
 import common from "../utils/common";
@@ -115,6 +115,7 @@ function Game() {
 
 
 		if (gridSize === 0 || grid === undefined) {
+				initializeGame();
 				return (<div>로딩 중...</div>);
 		}
 
